@@ -116,7 +116,8 @@ def run_vm(os, instance_id, local_hostname, mem, disk):
     image, newly_created = create_vm_img(os, disk, instance_id)
 
     qemu_command = [
-        "qemu-system-x86_64", 
+        "qemu-system-x86_64",
+        "-accel", "kvm",
         "-m", mem,
         "-nographic",
         "-device", "virtio-net-pci,netdev=net0", "-netdev", "user,id=net0,hostfwd=tcp::2222-:22",
