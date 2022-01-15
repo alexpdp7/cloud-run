@@ -1,7 +1,7 @@
 ```
 $ python
 >>> import cloud_run
->>> cloud_run.create_vm("debian-bullseye", "foo", "bar", "512M", "5G")
+>>> cloud_run.run_vm("debian-bullseye", "foo", "bar", "512M", "5G")
 ```
 
 In another terminal:
