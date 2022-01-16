@@ -54,6 +54,7 @@ def gen_user_data(user, ssh_authorized_keys):
             "ssh_authorized_keys": ssh_authorized_keys,
             "sudo": "ALL=(ALL) NOPASSWD:ALL",
             "groups": "sudo",
+            "shell": "/bin/bash",
         }],
     }
 
