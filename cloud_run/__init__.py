@@ -24,3 +24,7 @@ def run_vm(os, instance_id, local_hostname, mem, disk):
             subprocess.run(qemu_command + ["-drive", f"if=virtio,format=raw,file={cloud_init}"], check=True)
     else:
         subprocess.run(qemu_command, check=True)
+
+
+def rm_vm(instance_id):
+    images.get_vm_img_path(instance_id).unlink()
