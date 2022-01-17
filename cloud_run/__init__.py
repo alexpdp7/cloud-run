@@ -2,7 +2,7 @@ import shutil
 import subprocess
 
 from cloud_run import directories
-from cloud_run import images
+from cloud_run import cloud_images
 from cloud_run import cloud_init
 
 
@@ -10,7 +10,7 @@ def create_vm_img(os, size, name):
     vm_img_path = directories.get_data_dir() / f"{name}.qcow2"
     if vm_img_path.exists():
         return vm_img_path, False
-    shutil.copy(images.get_cloud_image(os), vm_img_path)
+    shutil.copy(cloud_images.get_cloud_image(os), vm_img_path)
     subprocess.run(["qemu-img", "resize", vm_img_path, size], check=True)
     return vm_img_path, True
 
