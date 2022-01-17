@@ -1,9 +1,7 @@
 import shutil
 import subprocess
 
-from cloud_run import directories
-from cloud_run import cloud_images
-from cloud_run import cloud_init
+from cloud_run import cloud_init as ci  # FIXME, only works with the rename!
 from cloud_run import images
 
 
@@ -20,7 +18,7 @@ def run_vm(os, instance_id, local_hostname, mem, disk):
     ]
 
     if newly_created:
-        with cloud_init.gen_cloud_init(instance_id, local_hostname) as cloud_init:
+        with ci.gen_cloud_init(instance_id, local_hostname) as cloud_init:
             subprocess.run(qemu_command + ["-drive", f"if=virtio,format=raw,file={cloud_init}"], check=True)
     else:
         subprocess.run(qemu_command, check=True)
