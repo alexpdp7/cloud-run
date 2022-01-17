@@ -11,13 +11,15 @@ from cloud_run import directories
 
 def gen_user_data(user, ssh_authorized_keys):
     return {
-        "users": [{
-            "name": user,
-            "ssh_authorized_keys": ssh_authorized_keys,
-            "sudo": "ALL=(ALL) NOPASSWD:ALL",
-            "groups": "sudo",
-            "shell": "/bin/bash",
-        }],
+        "users": [
+            {
+                "name": user,
+                "ssh_authorized_keys": ssh_authorized_keys,
+                "sudo": "ALL=(ALL) NOPASSWD:ALL",
+                "groups": "sudo",
+                "shell": "/bin/bash",
+            }
+        ],
     }
 
 
@@ -58,7 +60,21 @@ def gen_cloud_init(instance_id, local_hostname):
         _, iso_path = tempfile.mkstemp()
         try:
             iso_path = pathlib.Path(iso_path)
-            subprocess.run(["genisoimage", "-output", iso_path, "-V", "cidata", "-r", "-J", "-graft-points", f"user-data={user_data_path}", f"meta-data={meta_data_path}"], check=True)
+            subprocess.run(
+                [
+                    "genisoimage",
+                    "-output",
+                    iso_path,
+                    "-V",
+                    "cidata",
+                    "-r",
+                    "-J",
+                    "-graft-points",
+                    f"user-data={user_data_path}",
+                    f"meta-data={meta_data_path}",
+                ],
+                check=True,
+            )
             yield iso_path
         finally:
             iso_path.unlink()

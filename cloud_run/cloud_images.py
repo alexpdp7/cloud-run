@@ -4,7 +4,7 @@ from cloud_run import directories
 
 
 CLOUD_IMAGES = {
-    "debian-bullseye": "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2",
+    "debian-bullseye": "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2",  # noqa
 }
 
 
