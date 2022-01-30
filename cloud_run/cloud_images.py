@@ -18,6 +18,6 @@ def get_cloud_image(os):
         return ofile
     url = CLOUD_IMAGES[os]
     with urllib.request.urlopen(url) as d:
-        with open(ofile, "wb2") as o:
+        with open(ofile, "wb") as o:
             o.write(d.read())
     return ofile
