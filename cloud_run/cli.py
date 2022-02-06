@@ -18,7 +18,7 @@ def parser():
     run.add_argument("instance_id")
     run.add_argument("--local-hostname", required=False)
     run.add_argument("--mem", required=False, default="1G", help="default %(default)s")
-    run.add_argument("--disk", required=False, default="4G", help="default %(default)s")
+    run.add_argument("--disk", required=False, default="8G", help="default %(default)s")
     run.set_defaults(func=cloud_run.run_vm)
 
     rm_vm = sp.add_parser("rm-vm")
