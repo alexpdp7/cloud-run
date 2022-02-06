@@ -7,12 +7,18 @@ APPAUTHOR = "alexpdp7"
 
 
 def get_cache_dir():
-    cache_dir = pathlib.Path(appdirs.user_cache_dir(APPNAME, APPAUTHOR))
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    return cache_dir
+    return _get_dir(appdirs.user_cache_dir)
 
 
 def get_data_dir():
-    data_dir = pathlib.Path(appdirs.user_data_dir(APPNAME, APPAUTHOR))
+    return _get_dir(appdirs.user_data_dir)
+
+
+def get_state_dir():
+    return _get_dir(appdirs.user_state_dir)
+
+
+def _get_dir(d):
+    data_dir = pathlib.Path(d(APPNAME, APPAUTHOR))
     data_dir.mkdir(parents=True, exist_ok=True)
     return data_dir
