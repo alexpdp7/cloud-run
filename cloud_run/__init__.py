@@ -3,7 +3,9 @@ from cloud_run import images
 from cloud_run import qemu
 
 
-def run_vm(os, instance_id, local_hostname, mem, disk):
+def run_vm(os, instance_id, mem, disk, local_hostname=None):
+    if not local_hostname:
+        local_hostname = instance_id
     image, newly_created = images.create_vm_img(os, disk, instance_id)
 
     forwards = [qemu.HostForward(2222, 22)]

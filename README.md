@@ -1,7 +1,5 @@
 ```
-$ python
->>> import cloud_run
->>> cloud_run.run_vm("debian-bullseye", "foo", "bar", "512M", "5G")
+$ cloud-run run fc35 fc35
 ```
 
 In another terminal:
