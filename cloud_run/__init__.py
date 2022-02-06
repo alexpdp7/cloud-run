@@ -13,7 +13,3 @@ def run_vm(os, instance_id, local_hostname, mem, disk):
             qemu.exec_qemu(mem, image, forwards, cloud_init)
     else:
         qemu.exec_qemu(mem, image, forwards)
-
-
-def rm_vm(instance_id):
-    images.get_vm_img_path(instance_id).unlink()

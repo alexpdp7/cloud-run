@@ -5,8 +5,12 @@ from cloud_run import directories
 from cloud_run import cloud_images
 
 
+def get_imgs_path():
+    return directories.get_data_dir()
+
+
 def get_vm_img_path(instance_id):
-    return directories.get_data_dir() / f"{instance_id}.qcow2"
+    return get_imgs_path() / f"{instance_id}.qcow2"
 
 
 def create_vm_img(os, size, instance_id):
@@ -16,3 +20,11 @@ def create_vm_img(os, size, instance_id):
     shutil.copy(cloud_images.get_cloud_image(os), vm_img_path)
     subprocess.run(["qemu-img", "resize", vm_img_path, size], check=True)
     return vm_img_path, True
+
+
+def rm_vm(instance_id):
+    get_vm_img_path(instance_id).unlink()
+
+
+def get_vm_imgs():
+    return [p.stem for p in get_imgs_path().glob("*.qcow2")]
