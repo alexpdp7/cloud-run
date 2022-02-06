@@ -1,6 +1,7 @@
 from cloud_run import cloud_init as ci  # FIXME, only works with the rename!
 from cloud_run import images
 from cloud_run import qemu
+from cloud_run import state
 
 
 def run_vm(os, instance_id, mem, disk, local_hostname=None):
@@ -10,8 +11,9 @@ def run_vm(os, instance_id, mem, disk, local_hostname=None):
 
     forwards = [qemu.HostForward(2222, 22)]
 
-    if newly_created:
-        with ci.gen_cloud_init(instance_id, local_hostname) as cloud_init:
-            qemu.exec_qemu(mem, image, forwards, cloud_init)
-    else:
-        qemu.exec_qemu(mem, image, forwards)
+    with state.state(instance_id, forwards):
+        if newly_created:
+            with ci.gen_cloud_init(instance_id, local_hostname) as cloud_init:
+                qemu.exec_qemu(mem, image, forwards, cloud_init)
+        else:
+            qemu.exec_qemu(mem, image, forwards)
