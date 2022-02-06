@@ -3,10 +3,23 @@ import argparse
 import cloud_run
 from cloud_run import images
 from cloud_run import cloud_images
+from cloud_run import state
 
 
 def ls_vms_cli():
     print("\n".join(images.get_vm_imgs()))
+
+
+def ssh_cli(instance_id):
+    forwards = state.get_state(instance_id)
+    ssh_forwards = [f for f in forwards if f.vm_port == 22]
+    assert len(ssh_forwards) == 1
+    ssh_forward = ssh_forwards[0]
+    print(
+        f"-p {ssh_forward.host_port}",
+        "-o UserKnownHostsFile=/dev/null",
+        "-o StrictHostKeyChecking=no localhost",
+    )
 
 
 def parser():
@@ -27,6 +40,10 @@ def parser():
 
     ls_vms = sp.add_parser("ls-vms")
     ls_vms.set_defaults(func=ls_vms_cli)
+
+    ssh = sp.add_parser("ssh")
+    ssh.add_argument("instance_id")
+    ssh.set_defaults(func=ssh_cli)
 
     return p
 

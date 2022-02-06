@@ -5,7 +5,7 @@ $ cloud-run run fc35 fc35
 In another terminal:
 
 ```
-$ ssh -p 2222 -o StrictHostKeyChecking=off localhost
+$ ssh $(cloud-run ssh fc35)
 $ sudo shutdown -h now
 ```
 
