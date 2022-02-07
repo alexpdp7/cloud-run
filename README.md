@@ -10,6 +10,9 @@ VMs run as regular user processes.
 VMs use slirp user networking, that does not require any special setup.
 However, slirp user networking only allows accessing VMs by forwarded ports.
 
+`cloud-run` is meant to be a simple local workstation tool for quickly running VMs.
+For example, `cloud-run ansible-inventory` makes it easy to spin local VMs and run playbooks on them.
+
 # Requirements
 
 * Python 3
@@ -73,6 +76,15 @@ $ cloud-run rm-vm <name>
 ```
 
 # Similar tools
+
+`cloud-run` is pretty opinionated, and probably not according to everyone's tastes.
+
+`kcli` is infinitely more featured.
+I only started `cloud-run` because `kcli` does not do user mode VMs.
+However, if you don't need that, `kcli` does much more stuff.
+
+I think I had read about `waifud` before starting work on `cloud-run`, but I didn't realize the similarities until later.
+`waifud` has also more features.
 
 * https://github.com/Xe/waifud
 * https://github.com/karmab/kcli
