@@ -32,7 +32,7 @@ def ssh_cli(instance_id, user=None):
 def _forwards_to_inventory(vm_forwards):
     return {
         "ansible_host": "localhost",
-        "ansible_port": get_ssh_forward(vm_forwards).host_port
+        "ansible_port": get_ssh_forward(vm_forwards).host_port,
     }
 
 
@@ -45,7 +45,10 @@ def ansible_inventory_cli(list_command, host):
     if list_command:
         inventory = {
             "_meta": {
-                "hostvars": {vm: _forwards_to_inventory(vm_forwards) for vm, vm_forwards in forwards.items()},
+                "hostvars": {
+                    vm: _forwards_to_inventory(vm_forwards)
+                    for vm, vm_forwards in forwards.items()
+                },
             },
             "all": {
                 "children": ["ungrouped"],
@@ -84,8 +87,12 @@ def parser():
     ssh.set_defaults(func=ssh_cli)
 
     ansible_inventory = sp.add_parser("ansible-inventory")
-    ansible_inventory_action = ansible_inventory.add_mutually_exclusive_group(required=True)
-    ansible_inventory_action.add_argument("--list", action="store_true", dest="list_command")
+    ansible_inventory_action = ansible_inventory.add_mutually_exclusive_group(
+        required=True
+    )
+    ansible_inventory_action.add_argument(
+        "--list", action="store_true", dest="list_command"
+    )
     ansible_inventory_action.add_argument("--host")
     ansible_inventory.set_defaults(func=ansible_inventory_cli)
 
