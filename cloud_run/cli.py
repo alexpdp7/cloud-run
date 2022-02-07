@@ -10,15 +10,17 @@ def ls_vms_cli():
     print("\n".join(images.get_vm_imgs()))
 
 
-def ssh_cli(instance_id):
+def ssh_cli(instance_id, user=None):
     forwards = state.get_state(instance_id)
     ssh_forwards = [f for f in forwards if f.vm_port == 22]
     assert len(ssh_forwards) == 1
     ssh_forward = ssh_forwards[0]
+    user_prefix = f"{user}@" if user else ""
     print(
         f"-p {ssh_forward.host_port}",
         "-o UserKnownHostsFile=/dev/null",
-        "-o StrictHostKeyChecking=no localhost",
+        "-o StrictHostKeyChecking=no",
+        f"{user_prefix}localhost",
     )
 
 
@@ -43,6 +45,7 @@ def parser():
 
     ssh = sp.add_parser("ssh")
     ssh.add_argument("instance_id")
+    ssh.add_argument("--user", required=False)
     ssh.set_defaults(func=ssh_cli)
 
     return p
