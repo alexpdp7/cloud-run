@@ -5,12 +5,14 @@ from cloud_run import qemu
 from cloud_run import state
 
 
-def run_vm(os, instance_id, mem, disk, local_hostname=None):
+def run_vm(os, instance_id, mem, disk, local_hostname=None, forwards=None):
     if not local_hostname:
         local_hostname = instance_id
     image, newly_created = images.create_vm_img(os, disk, instance_id)
 
-    forwards = [qemu.HostForward(net.get_free_port(), 22)]
+    if not forwards:
+        forwards = []
+    forwards.append(qemu.HostForward(net.get_free_port(), 22))
 
     with state.state(instance_id, forwards):
         if newly_created:

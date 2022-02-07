@@ -4,6 +4,7 @@ import json
 import cloud_run
 from cloud_run import images
 from cloud_run import cloud_images
+from cloud_run import qemu
 from cloud_run import state
 
 
@@ -72,6 +73,13 @@ def parser():
     run.add_argument("--local-hostname", required=False)
     run.add_argument("--mem", required=False, default="1G", help="default %(default)s")
     run.add_argument("--disk", required=False, default="8G", help="default %(default)s")
+    run.add_argument(
+        "--forward",
+        action="append",
+        type=qemu.parse_host_forward,
+        dest="forwards",
+        metavar="HOST_PORT:VM_PORT",
+    )
     run.set_defaults(func=cloud_run.run_vm)
 
     rm_vm = sp.add_parser("rm-vm")

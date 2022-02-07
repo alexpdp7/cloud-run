@@ -11,6 +11,11 @@ class HostForward:
         return f"hostfwd=tcp::{self.host_port}-:{self.vm_port}"
 
 
+def parse_host_forward(s):
+    host_port, vm_port = s.split(":")
+    return HostForward(host_port, vm_port)
+
+
 def exec_qemu(mem, image, forwards, cloud_init=None):
     forward_str = ",".join(map(str, forwards))
 
