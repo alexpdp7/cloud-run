@@ -50,6 +50,10 @@ def parser():
 
 def main():
     args = parser().parse_args()
+
+    if "func" not in args:
+        parser().error("no command supplied")
+
     func_args = args.__dict__.copy()
     del func_args["func"]
     args.func(**func_args)
