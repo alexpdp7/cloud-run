@@ -23,6 +23,8 @@ def exec_qemu(mem, image, forwards, cloud_init=None):
         "qemu-system-x86_64",
         "-accel",
         "kvm",
+        "-cpu",
+        "max",
         "-m",
         mem,
         "-nographic",

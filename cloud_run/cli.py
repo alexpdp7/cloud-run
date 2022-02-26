@@ -68,11 +68,13 @@ def parser():
     sp = p.add_subparsers()
 
     run = sp.add_parser("run")
-    run.add_argument("os", choices=cloud_images.CLOUD_IMAGES.keys())
+    run.add_argument("os", choices=cloud_images.AVAILABLE_CLOUD_IMAGES)
     run.add_argument("instance_id")
     run.add_argument("--local-hostname", required=False)
     run.add_argument("--mem", required=False, default="1G", help="default %(default)s")
-    run.add_argument("--disk", required=False, default="8G", help="default %(default)s")
+    run.add_argument(
+        "--disk", required=False, default="11G", help="default %(default)s"
+    )
     run.add_argument(
         "--forward",
         action="append",
