@@ -16,7 +16,7 @@ def parse_host_forward(s):
     return HostForward(host_port, vm_port)
 
 
-def exec_qemu(mem, image, forwards, cloud_init=None):
+def exec_qemu(mem, image, forwards, smp, cloud_init=None):
     forward_str = ",".join(map(str, forwards))
 
     qemu_command = [
@@ -25,6 +25,8 @@ def exec_qemu(mem, image, forwards, cloud_init=None):
         "kvm",
         "-cpu",
         "max",
+        "-smp",
+        smp,
         "-m",
         mem,
         "-nographic",
