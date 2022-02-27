@@ -1,4 +1,4 @@
-import collections
+from collections import abc
 import urllib.request
 
 from cloud_run import directories
@@ -29,7 +29,7 @@ AVAILABLE_CLOUD_IMAGES = _CLOUD_IMAGES.keys()
 def get_cloud_image_url(os):
     return (
         _CLOUD_IMAGES[os]()
-        if isinstance(_CLOUD_IMAGES[os], collections.Callable)
+        if isinstance(_CLOUD_IMAGES[os], abc.Callable)
         else _CLOUD_IMAGES[os]
     )
 
