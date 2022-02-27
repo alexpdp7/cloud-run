@@ -72,7 +72,12 @@ def parser():
     run.add_argument("instance_id")
     run.add_argument("--local-hostname", required=False)
     run.add_argument("--mem", required=False, default="1G", help="default %(default)s")
-    run.add_argument("--smp", required=False, default="cpus=1", help="default %(default)s, see qemu -smp")
+    run.add_argument(
+        "--smp",
+        required=False,
+        default="cpus=1",
+        help="default %(default)s, see qemu -smp",
+    )
     run.add_argument(
         "--disk", required=False, default="11G", help="default %(default)s"
     )
