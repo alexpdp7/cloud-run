@@ -1,4 +1,5 @@
 from collections import abc
+import shutil
 import urllib.request
 
 from cloud_run import directories
@@ -45,5 +46,5 @@ def get_cloud_image(os):
     url = get_cloud_image_url(os)
     with urllib.request.urlopen(url) as d:
         with open(ofile, "wb") as o:
-            o.write(d.read())
+            shutil.copyfileobj(d, o)
     return ofile
