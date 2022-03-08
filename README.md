@@ -16,9 +16,21 @@ For example, `cloud-run ansible-inventory` makes it easy to spin local VMs and r
 # Requirements
 
 * Python 3
-* `genisoimage`
+* `mkisofs`
 * `qemu` working under the user you run `cloud-run` as.
 * `qemu-img`
+
+On macOS, run:
+
+```
+$ brew install cdrtools qemu
+```
+
+On Debian:
+
+```
+$ apt install genisoimage qemu-system-x86
+```
 
 # Installation
 

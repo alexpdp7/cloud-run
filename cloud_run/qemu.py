@@ -1,5 +1,12 @@
 import dataclasses
 import subprocess
+import sys
+
+
+PLATFORM_ACCELERATORS = {
+    "darwin": "hvf",
+    "linux": "kvm",
+}
 
 
 @dataclasses.dataclass
@@ -22,7 +29,7 @@ def exec_qemu(mem, image, forwards, smp, cloud_init=None):
     qemu_command = [
         "qemu-system-x86_64",
         "-accel",
-        "kvm",
+        PLATFORM_ACCELERATORS[sys.platform],
         "-cpu",
         "max",
         "-smp",

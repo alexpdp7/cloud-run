@@ -62,7 +62,7 @@ def gen_cloud_init(instance_id, local_hostname):
             iso_path = pathlib.Path(iso_path)
             subprocess.run(
                 [
-                    "genisoimage",
+                    "mkisofs",
                     "-output",
                     iso_path,
                     "-V",
