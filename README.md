@@ -3,7 +3,7 @@
 `cloud-run` is a wrapper around `qemu` that spins up VMs using cloud images (i.e. using `cloud-init`).
 
 `qemu` is multiplatform and supposedly can integrate with KVM (Linux), Hypervisor.framework (macOS), and Hyper-V (Windows).
-However, `cloud-run` has only been tested under Debian, and it has some additional dependencies.
+I develop `cloud-run` on Debian, and I have tested it minimally on macOS.
 
 `cloud-run` works with `qemu`'s regular user support.
 VMs run as regular user processes.
