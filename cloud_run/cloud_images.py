@@ -20,6 +20,7 @@ def get_centos_9_stream_cloud_image_url():
 _CLOUD_IMAGES = {
     "debian-bullseye": "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2",  # noqa
     "fc35": "https://download.fedoraproject.org/pub/fedora/linux/releases/35/Cloud/x86_64/images/Fedora-Cloud-Base-35-1.2.x86_64.qcow2",  # noqa
+    "fc36": "https://download.fedoraproject.org/pub/fedora/linux/releases/36/Cloud/x86_64/images/Fedora-Cloud-Base-36-1.5.x86_64.qcow2",  # noqa
     "c9-stream": get_centos_9_stream_cloud_image_url,
     "alma8": "https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2",  # noqa
 }
