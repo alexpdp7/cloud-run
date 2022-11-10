@@ -32,6 +32,12 @@ On Debian:
 $ apt install genisoimage qemu-system-x86
 ```
 
+On EL9:
+
+```
+$ dnf install xorriso qemu-kvm-core
+```
+
 # Installation
 
 `cloud-run` is a Python module that exposes some scripts.
