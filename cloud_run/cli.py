@@ -1,5 +1,6 @@
 import argparse
 import json
+import logging
 
 import cloud_run
 from cloud_run import images
@@ -116,6 +117,7 @@ def parser():
 
 
 def main():
+    logging.basicConfig(level=logging.INFO)
     args = parser().parse_args()
 
     if "func" not in args:
