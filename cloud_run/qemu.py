@@ -61,7 +61,7 @@ def exec_qemu(mem, image, forwards, smp, cloud_init=None):
 
     if cloud_init:
         subprocess.run(
-            qemu_command + ["-drive", f"if=virtio,format=raw,file={cloud_init}"],
+            qemu_command + ["-cdrom", cloud_init],
             check=True,
         )
     else:
