@@ -1,7 +1,10 @@
 import dataclasses
+import logging
 import shutil
 import subprocess
-import sys
+
+
+logger = logging.getLogger(__name__)
 
 
 PLATFORM_ACCELERATORS = {
@@ -11,7 +14,7 @@ PLATFORM_ACCELERATORS = {
 
 
 QEMU_EXECUTABLES = [
-    "qemu-system-x86_64",  # Debian
+    "qemu-system-aarch64",  # Debian
     "/usr/libexec/qemu-kvm",  # EL9
 ]
 
@@ -42,10 +45,10 @@ def exec_qemu(mem, image, forwards, smp, cloud_init=None):
 
     qemu_command = [
         get_qemu_executable(),
-        "-accel",
-        PLATFORM_ACCELERATORS[sys.platform],
+        "-machine",
+        "virt",
         "-cpu",
-        "max",
+        "cortex-a53",
         "-smp",
         smp,
         "-m",
@@ -57,7 +60,11 @@ def exec_qemu(mem, image, forwards, smp, cloud_init=None):
         f"user,id=net0,{forward_str}",
         "-drive",
         f"if=virtio,format=qcow2,file={image}",
+        "-bios",
+        "/usr/share/edk2/aarch64/QEMU_EFI.fd",
     ]
+
+    logging.info("%s", qemu_command)
 
     if cloud_init:
         subprocess.run(
