@@ -3,7 +3,7 @@
 `cloud-run` is a wrapper around `qemu` that spins up VMs using cloud images (i.e. using `cloud-init`).
 
 `qemu` is multiplatform and supposedly can integrate with KVM (Linux), Hypervisor.framework (macOS), and Hyper-V (Windows).
-I develop `cloud-run` on Debian, and I have tested it minimally on macOS.
+I develop `cloud-run` primarily on EL9 and an Arch Linux container, and I have tested it minimally on macOS and Debian.
 
 `cloud-run` works with `qemu`'s regular user support.
 VMs run as regular user processes.
@@ -56,14 +56,22 @@ $ pipx install git+https://github.com/alexpdp7/cloud-run.git
 Start a VM named `name` using `distro`:
 
 ```
-$ cloud-run run <distro> <name>
+$ cloud-run run --create-with-base-image <distro> <name>
 ```
 
 * Check `cloud-run run --help` for supported cloud images.
-* `cloud-run run` downloads the cloud image on first use.
-* `cloud-run run` creates and start the VM, or starts the VM if it had already been created.
+* With `--create-with-base-image`, `cloud-run run` downloads the cloud image on first use and creates the VM.
+* `cloud-run run` starts the VM.
 * `cloud-run run` remains attached to the VM console.
   Shut down the VM to make `cloud-run run` exit.
+
+### Emulating other CPUs
+
+(This example has been tested only on Arch Linux.)
+
+```
+$ cloud-run run --create-with-base-image https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-generic-arm64.qcow2 --qemu-executable qemu-system-aarch64 --machine virt --cpu cortex-a53 --no-accel --extra-qemu-opts "-bios /usr/share/edk2/aarch64/QEMU_EFI.fd" debian-bullseye-arm64
+```
 
 ## Connect to a VM
 
