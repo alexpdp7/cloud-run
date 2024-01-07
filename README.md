@@ -73,6 +73,8 @@ $ cloud-run run --create-with-base-image <distro> <name>
 $ cloud-run run --create-with-base-image https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-generic-arm64.qcow2 --qemu-executable qemu-system-aarch64 --machine virt --cpu cortex-a53 --no-accel --extra-qemu-opts "-bios /usr/share/edk2/aarch64/QEMU_EFI.fd" debian-bullseye-arm64
 ```
 
+See https://github.com/alexpdp7/raspberry-pi-headless-provision for a procedure to use this to provision a Raspberry Pi completely headlessly.
+
 ## Connect to a VM
 
 Connect to a VM named `name`:
@@ -92,7 +94,7 @@ cloud-run ansible-inventory "$@"
 ```
 
 Configure Ansible to use that file as inventory.
-The inventory contains *running* VMs. 
+The inventory contains *running* VMs.
 
 ## Manage VMs
 
