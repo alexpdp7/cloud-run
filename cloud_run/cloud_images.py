@@ -50,7 +50,9 @@ _CLOUD_IMAGES = {
 AVAILABLE_CLOUD_IMAGES = _CLOUD_IMAGES.keys()
 
 
-def get_cloud_image_url(os) -> str:
+def get_cloud_image_url(os: str) -> str:
+    if os.startswith("https://"):
+        return os
     return (
         _CLOUD_IMAGES[os]()
         if isinstance(_CLOUD_IMAGES[os], abc.Callable)

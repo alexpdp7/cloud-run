@@ -69,19 +69,19 @@ def parser():
     sp = p.add_subparsers()
 
     run = sp.add_parser("run")
-    run.add_argument("os", choices=cloud_images.AVAILABLE_CLOUD_IMAGES)
+    available_images = " ".join(cloud_images.AVAILABLE_CLOUD_IMAGES)
+    run.add_argument(
+        "--create-with-base-image", help=f"Either an URL or one of {available_images}"
+    )
     run.add_argument("instance_id")
-    run.add_argument("--local-hostname", required=False)
-    run.add_argument("--mem", required=False, default="1G", help="default %(default)s")
+    run.add_argument("--local-hostname")
+    run.add_argument("--mem", default="1G", help="default %(default)s")
     run.add_argument(
         "--smp",
-        required=False,
         default="cpus=1",
         help="default %(default)s, see qemu -smp",
     )
-    run.add_argument(
-        "--disk", required=False, default="11G", help="default %(default)s"
-    )
+    run.add_argument("--disk", default="11G", help="default %(default)s")
     run.add_argument(
         "--forward",
         action="append",
@@ -89,6 +89,11 @@ def parser():
         dest="forwards",
         metavar="HOST_PORT:VM_PORT",
     )
+    run.add_argument("--qemu-executable")
+    run.add_argument("--machine")
+    run.add_argument("--cpu", default="max")
+    run.add_argument("--no-accel", action="store_false", dest="accel")
+    run.add_argument("--extra-qemu-opts")
     run.set_defaults(func=cloud_run.run_vm)
 
     rm_vm = sp.add_parser("rm-vm")
