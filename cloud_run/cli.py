@@ -19,16 +19,23 @@ def get_ssh_forward(forwards):
     return ssh_forwards[0]
 
 
-def ssh_cli(instance_id, user=None):
+def ssh(instance_id, user=None):
     forwards = state.get_state(instance_id)
     ssh_forward = get_ssh_forward(forwards)
     user_prefix = f"{user}@" if user else ""
-    print(
-        f"-p {ssh_forward.host_port}",
-        "-o UserKnownHostsFile=/dev/null",
-        "-o StrictHostKeyChecking=no",
+    return [
+        "-p",
+        str(ssh_forward.host_port),
+        "-o",
+        "UserKnownHostsFile=/dev/null",
+        "-o",
+        "StrictHostKeyChecking=no",
         f"{user_prefix}localhost",
-    )
+    ]
+
+
+def ssh_cli(instance_id, user=None):
+    return " ".join(ssh(instance_id, user))
 
 
 def _forwards_to_inventory(vm_forwards):
