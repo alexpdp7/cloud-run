@@ -35,7 +35,7 @@ def ssh(instance_id, user=None):
 
 
 def ssh_cli(instance_id, user=None):
-    return " ".join(ssh(instance_id, user))
+    print(" ".join(ssh(instance_id, user)))
 
 
 def _forwards_to_inventory(vm_forwards):
