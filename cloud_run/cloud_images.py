@@ -1,5 +1,6 @@
 from collections import abc
 import logging
+import lzma
 import shutil
 import urllib.request
 
@@ -65,6 +66,8 @@ def get_cloud_image_path(os):
     file = get_cloud_image_url(os).split("/")[-1]
     if file.endswith(".zst"):
         file = file.removesuffix(".zst")
+    if file.endswith(".xz"):
+        file = file.removesuffix(".xz")
     return directories.get_cache_dir() / file
 
 
@@ -87,6 +90,13 @@ def get_cloud_image(os):
         with urllib.request.urlopen(url) as d:
             with open(ofile, "wb") as o:
                 pyzstd.decompress_stream(d, o)
+        return ofile
+
+    if url.endswith(".xz"):
+        with urllib.request.urlopen(url) as d:
+            with lzma.open(d) as dd:
+                with open(ofile, "wb") as o:
+                    shutil.copyfileobj(dd, o)
         return ofile
 
     assert False, f"don't know what to do with {url}"
