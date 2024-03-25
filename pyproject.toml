@@ -8,7 +8,7 @@ authors = ["alex <alex@pdp7.net>"]
 python = "^3.9"
 appdirs = "^1.4.4"
 PyYAML = "^6.0"
-pyzstd = {version = "^0.15.9", optional = true }
+pyzstd = {version = "^0.15.10", optional = true }
 
 [tool.poetry.extras]
 zstd = ["pyzstd"]
