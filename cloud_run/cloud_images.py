@@ -26,9 +26,8 @@ def get_omnios_stable_cloud_image_url():
     BASE = "https://downloads.omnios.org/media/stable"
     with urllib.request.urlopen(f"{BASE}/") as i:
         i_html = i.read().decode("utf8")
-    lines = [line for line in i_html.splitlines() if "cloud.raw.zst" in line]
-    assert len(lines) == 2, f"found {len(lines)}"
-    line = lines[0]
+    lines = [line for line in i_html.splitlines() if 'cloud.raw.zst"' in line]
+    line = lines[-1]
     parts = line.split('"')
     assert len(parts) == 7, f"{line} should have 7 parts when split by double quotes"
     return f"{BASE}/{parts[3]}"
