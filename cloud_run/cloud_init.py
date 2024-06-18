@@ -23,9 +23,20 @@ def gen_user_data(user, ssh_authorized_keys):
     }
 
 
+# from the output of ssh -vvv on my machine
+KEY_TYPES = ["rsa", "ecdsa", "ecdsa_sk", "ed25519", "ed25519_sk", "xmss", "dsa"]
+
+
+def get_first_key():
+    for type in KEY_TYPES:
+        key_file = pathlib.Path.home() / ".ssh" / f"id_{type}.pub"
+        if key_file.exists():
+            return key_file.read_text()
+    assert False, "no key found"
+
+
 def gen_self_user_data():
-    with open(os.environ["HOME"] + "/.ssh/id_rsa.pub") as pubkeyf:
-        pubkey = pubkeyf.read()
+    pubkey = get_first_key()
     return gen_user_data(os.environ["USER"], pubkey)
 
 
