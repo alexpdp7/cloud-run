@@ -24,8 +24,8 @@ def ssh(instance_id, user=None):
     ssh_forward = get_ssh_forward(forwards)
     user_prefix = f"{user}@" if user else ""
     return [
-        "-p",
-        str(ssh_forward.host_port),
+        "-o",
+        f"Port={ssh_forward.host_port}",
         "-o",
         "UserKnownHostsFile=/dev/null",
         "-o",
