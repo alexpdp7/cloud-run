@@ -1,3 +1,8 @@
+# Archival
+
+I have found [Incus](https://linuxcontainers.org/incus/), which I think can address all the needs that `cloud-init` was supposed to cover (and more).
+Therefore, I am archiving this repository.
+
 # What is `cloud-run`
 
 `cloud-run` is a wrapper around `qemu` that spins up VMs using cloud images (i.e. using `cloud-init`).
@@ -107,6 +112,9 @@ $ cloud-run rm-vm <name>
 
 `cloud-run` is pretty opinionated, and probably not according to everyone's tastes.
 
+Incus is much more.
+I am switching to Incus and archiving `cloud-run` for now.
+
 `kcli` is infinitely more featured.
 I only started `cloud-run` because `kcli` does not do user mode VMs.
 However, if you don't need that, `kcli` does much more stuff.
@@ -116,3 +124,4 @@ I think I had read about `waifud` before starting work on `cloud-run`, but I did
 
 * https://github.com/Xe/waifud
 * https://github.com/karmab/kcli
+* https://linuxcontainers.org/incus/
